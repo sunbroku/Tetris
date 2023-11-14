@@ -34,24 +34,13 @@ public class TetrisBlockFactory {
         }
     }
 
-    /*public TetrisCompound buildI() {
-        //Length 4 i-block, doesn't work with the way rotation is handled
+    public TetrisCompound buildI() {
         TetrisBlock [] iBlock = new TetrisBlock[4];
         int[] xCoord = {3,4,5,6};
         int[] yCoord = {0,0,0,0};
+        int[] offsetToCenterX = {-2,-1,1,2};
+        int[] offsetToCenterY = {0,0,0,0};
         for(int i = 0; i < 4; i++) {
-            iBlock[i] = new TetrisBlock(javafx.scene.paint.Color.CYAN, xCoord[i], yCoord[i]);
-        }
-        return new TetrisCompound(iBlock);
-    }*/
-
-    public TetrisCompound buildI() {
-        TetrisBlock [] iBlock = new TetrisBlock[3];
-        int[] xCoord = {3,4,5};
-        int[] yCoord = {0,0,0};
-        int[] offsetToCenterX = {-1,0,1};
-        int[] offsetToCenterY = {0,0,0};
-        for(int i = 0; i < 3; i++) {
             iBlock[i] = new TetrisBlock(javafx.scene.paint.Color.CYAN, xCoord[i], yCoord[i], offsetToCenterX[i], offsetToCenterY[i]);
         }
         return new TetrisCompound(iBlock,1,0);

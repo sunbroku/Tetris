@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ public class TetrisView {
     private final int columns;
     Rectangle [][] boardSquares;
     Rectangle [][] previewSquares;
+    Text scoreText;
+    Text scorePoints;
     private final MenuItem nGame = new MenuItem("New Game");
     private final MenuItem mExit = new MenuItem("Exit Game");
 
@@ -32,7 +35,9 @@ public class TetrisView {
 
         BorderPane bPane = new BorderPane();
         GridPane gPane = new GridPane();
+        GridPane rightPane = new GridPane();
         GridPane previewPane = new GridPane();
+        GridPane scorePane = new GridPane();
         HBox box = new HBox();
 
         Menu menu = new Menu("Menu");
@@ -41,6 +46,7 @@ public class TetrisView {
         mBar.getMenus().add(menu);
         box.getChildren().add(mBar);
 
+        bPane.setStyle("-fx-background-color: Blue");
         gPane.setStyle("-fx-background-color: Blue");
         gPane.setHgap(1);
         gPane.setVgap(1);
@@ -54,7 +60,10 @@ public class TetrisView {
 
         bPane.setTop(box);
         bPane.setCenter(gPane);
-        bPane.setRight(previewPane);
+
+        rightPane.add(previewPane,0,0);
+        rightPane.add(scorePane,0,1);
+        bPane.setRight(rightPane);
         Scene scene = new Scene(bPane);
 
         boardSquares = new Rectangle[rows][columns];
@@ -84,8 +93,22 @@ public class TetrisView {
             }
         }
 
+        scoreText = new Text();
+        scoreText.setText("Score: ");
+        scoreText.setFill(Color.WHITE);
+        scoreText.setStyle("-fx-font: 24 arial;");
+
+        scorePoints = new Text();
+        scorePoints.setText("0");
+        scorePoints.setFill(Color.WHITE);
+        scorePoints.setStyle("-fx-font: 24 arial;");
+
+        scorePane.setStyle("-fx-background-color: Blue");
+        scorePane.add(scoreText,0,0);
+        scorePane.add(scorePoints,1,0);
+
         primaryStage.setScene(scene);
-        //primaryStage.setMaximized(true);
+        primaryStage.setMaximized(true);
         primaryStage.setResizable(false);
     }
 
@@ -97,6 +120,7 @@ public class TetrisView {
     }
 
     public void updatePlayerBlock(TetrisCompound tc) {
+        //Gameover crash here because NullPointerException
         for(TetrisBlock block : tc.getBlockParts()) {
             boardSquares[block.getY()][block.getX()].setFill(block.getBlockColor());
         }
@@ -122,6 +146,10 @@ public class TetrisView {
         }else {
             boardSquares[block.getY()][block.getX()].setFill(block.getBlockColor());
         }
+    }
+
+    public void setScore(int score) {
+        scorePoints.setText(Integer.toString(score));
     }
 
     public void updatePreview(TetrisCompound tc) {

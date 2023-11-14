@@ -8,7 +8,7 @@ public class TetrisModel extends Observable {
     private TetrisBlockFactory blockFactory;
     private int rows;
     private int columns;
-
+    private int score;
     private TetrisCompound playerActiveBlocks;
     private boolean nextPlayerBlockNeeded;
 
@@ -157,6 +157,7 @@ public class TetrisModel extends Observable {
                 collapseLine(i);
                 isTetris = false;
                 i++;
+                score += 10;
             }
         }
     }
@@ -181,6 +182,8 @@ public class TetrisModel extends Observable {
     public TetrisField[][] getBoard() {
         return board;
     }
+    public void setScore(int points) { score = points; }
+    public int getScore() { return score; }
 
     public TetrisCompound getPreviewBlock() {
         return blockFactory.getPreviewPiece();

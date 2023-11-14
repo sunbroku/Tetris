@@ -13,6 +13,7 @@ public class TetrisController implements Runnable{
     boolean progFlag;
     Thread activeThread;
 
+    int takt = 2000;
 
     public TetrisController(TetrisModel model,TetrisView view) {
         this.model = model;
@@ -71,6 +72,8 @@ public class TetrisController implements Runnable{
         view.updateBoard(this.model.getBoard());
         progFlag = true;
         nextPlayerBlock();
+        this.model.setScore(0);
+        view.setScore(this.model.getScore());
     }
 
     public void exitGame() {
@@ -119,8 +122,9 @@ public class TetrisController implements Runnable{
     public void run() {
         while(progFlag) {
             try {
-                sleep(2000);
+                sleep(takt);
                 progFlag = threadMoveDown();
+                view.setScore(model.getScore());
             } catch (InterruptedException e) {
                 return;
             }
