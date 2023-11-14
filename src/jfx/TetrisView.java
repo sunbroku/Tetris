@@ -108,7 +108,7 @@ public class TetrisView {
         scorePane.add(scorePoints,1,0);
 
         primaryStage.setScene(scene);
-        primaryStage.setMaximized(true);
+        //primaryStage.setMaximized(true);
         primaryStage.setResizable(false);
     }
 
